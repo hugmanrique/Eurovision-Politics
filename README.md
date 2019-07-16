@@ -2,7 +2,7 @@
 
 ![Eurovision participants scores](assets/output.png)
 
-This project evaluates the amount of votes given to [Eurovision](https://en.wikipedia.org/wiki/Eurovision_Song_Contest) country participants from neighbour countries. The formula used is
+This project evaluates the amount of points given to [Eurovision](https://en.wikipedia.org/wiki/Eurovision_Song_Contest) country participants from neighbour countries. The formula used is
 
 ![score formula](assets/formula.png)
 
