@@ -56,7 +56,7 @@ const maxValue = Math.max.apply(null, values);
 const paletteScale = d3.scale
   .linear()
   .domain([minValue, maxValue])
-  .range(['#DBDBDD', '#02386F']);
+  .range(['#CBD5E0', '#2C5282']);
 
 const dataset = {};
 

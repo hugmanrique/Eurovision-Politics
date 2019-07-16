@@ -20,7 +20,7 @@ const map = new Datamap({
   //scope: 'custom',
   setProjection: () => ({ projection, path }),
   fills: {
-    defaultFill: '#DBDBDD'
+    defaultFill: '#CBD5E0'
   },
   data: dataset
 });
