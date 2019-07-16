@@ -1,16 +1,33 @@
-const neighbours = require('../neighbours.json');
+const countryNames = require('./data/countryNames.json');
+const countryCodes = require('./data/countryCodes.json');
+const neighbours = require('./data/neighbours.json');
 
-const dissolvedCountries = ['YU'];
+const dissolvedCountries = ['YUG'];
 
-exports.areNeighbors = (countryA, countryB) => {
-  const countryData = neighbours[countryA];
+exports.getCountryCode = countryName => {
+  const alpha2 = countryNames[countryName];
 
-  if (!countryData) {
-    console.warn(`Missing neighbor data for "${countryA}"`);
-    return false;
+  if (!alpha2) {
+    throw new Error(`Missing ISO 3166 alpha-2 country code for ${countryName}`);
   }
 
-  return countryData.neighbours.includes(countryB);
+  const code = countryCodes[alpha2];
+
+  if (!code) {
+    throw new Error(
+      `Missing ISO 3166 alpha-3 country code for ${countryName} (${alpha2})`
+    );
+  }
+
+  return code;
 };
 
-exports.isDissolved = country => dissolvedCountries.includes(country);
+exports.areNeighbours = (aCode, bCode) => {
+  const aNeighbours = neighbours[aCode];
+
+  return aNeighbours.includes(bCode);
+};
+
+exports.getNeighbours = countryCode => neighbours[countryCode];
+
+exports.isDissolved = countryCode => dissolvedCountries.includes(countryCode);

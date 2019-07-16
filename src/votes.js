@@ -1,42 +1,62 @@
-const countryCodes = require('../countries.json');
+const { getCountryCode, isDissolved } = require('./countries');
 
-exports.getVoteCount = voteRows => {
-  const voteCount = {};
+exports.parseVotes = voteRows => {
+  const countries = {};
+  const firstYears = {};
 
-  function getVoteCount(country) {
-    if (!voteCount[country]) {
-      voteCount[country] = {};
+  function getVoteCount(fromCode, toCode) {
+    let countryVotes = countries[fromCode];
+
+    if (!countryVotes) {
+      countryVotes = countries[fromCode] = {};
     }
 
-    return voteCount[country];
+    return countryVotes[toCode] || 0;
   }
 
-  function addVote(countryFrom, countryTo) {
-    const votes = getVoteCount(countryFrom);
-    const current = votes[countryTo] || 0;
+  function updateFirstYear(countryCode, year) {
+    const prevFirstYear = firstYears[countryCode];
 
-    votes[countryTo] = current + 1;
+    if (prevFirstYear && year >= prevFirstYear) {
+      return;
+    }
+
+    firstYears[countryCode] = year;
+  }
+
+  function addVote(fromCode, toCode, year) {
+    const count = getVoteCount(fromCode, toCode);
+
+    // Increment from->to vote count
+    countries[fromCode][toCode] = count + 1;
+
+    updateFirstYear(fromCode, year);
+    updateFirstYear(toCode, year);
   }
 
   voteRows.forEach(row => {
-    const displayFrom = row[4];
-    const displayTo = row[5];
+    // Parse row
 
-    const countryFrom = countryCodes[displayFrom];
-    const countryTo = countryCodes[displayTo];
+    const fromCountryName = row[4];
+    const toCountryName = row[5];
 
-    if (!countryFrom) {
-      console.warn(`Missing country code for "${displayFrom}"`);
+    const fromCode = getCountryCode(fromCountryName);
+    const toCode = getCountryCode(toCountryName);
+
+    if (isDissolved(fromCode) || isDissolved(toCode)) {
+      // Ignore vote
       return;
     }
 
-    if (!countryTo) {
-      console.warn(`Missing country code for "${displayTo}"`);
-      return;
-    }
+    const year = parseInt(row[0]);
 
-    addVote(countryFrom, countryTo);
+    addVote(fromCode, toCode, year);
   });
 
-  return voteCount;
+  return { countries, firstYears };
+};
+
+exports.getFinalVotes = voteRows => {
+  // 'f' = final
+  return voteRows.filter(row => row[1] === 'f');
 };

@@ -1,6 +1,11 @@
 {
   "name": "@hugmanrique/eurovision-analysis",
   "private": true,
+  "scripts": {
+    "createData": "node src/createData.js",
+    "createScores": "node src/analysis/createScores.js",
+    "serve": "caddy -root public"
+  },
   "devDependencies": {
     "@hugmanrique/eslint-config": "^1.0.3",
     "eslint": "^6.0.1",
