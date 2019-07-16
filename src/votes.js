@@ -24,11 +24,11 @@ exports.parseVotes = voteRows => {
     firstYears[countryCode] = year;
   }
 
-  function addVote(fromCode, toCode, year) {
+  function addVotes(fromCode, toCode, points, year) {
     const count = getVoteCount(fromCode, toCode);
 
     // Increment from->to vote count
-    countries[fromCode][toCode] = count + 1;
+    countries[fromCode][toCode] = count + points;
 
     updateFirstYear(fromCode, year);
     updateFirstYear(toCode, year);
@@ -49,8 +49,9 @@ exports.parseVotes = voteRows => {
     }
 
     const year = parseInt(row[0]);
+    const points = parseInt(row[6]);
 
-    addVote(fromCode, toCode, year);
+    addVotes(fromCode, toCode, points, year);
   });
 
   return { countries, firstYears };
