@@ -1,0 +1,9 @@
+{
+  "name": "@hugmanrique/eurovision-analysis",
+  "private": true,
+  "devDependencies": {
+    "@hugmanrique/eslint-config": "^1.0.3",
+    "eslint": "^6.0.1",
+    "prettier": "^1.18.2"
+  }
+}
