@@ -12,6 +12,12 @@ Additionally, the [ISO 3166-1](https://en.wikipedia.org/wiki/List_of_ISO_3166_co
 
 Note some country data was missing, so the modified datasets are available on the [`src/data`](src/data) directory.
 
+## Data remixes
+
+[u/YenOlass](https://www.reddit.com/user/YenOlass) suggested basing the score on `# neighbour votes / total votes`, which I agree makes a bit more sense and actually corroborates some widely believed hypotheses. Here's the resulting cloropleth:
+
+![Eurovision neighbour vote percentage](assets/neighbourVotesPercentage.png)
+
 ## License
 
 This visualization is licensed under the [MIT License](LICENSE).
