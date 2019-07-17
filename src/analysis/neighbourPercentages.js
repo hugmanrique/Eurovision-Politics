@@ -10,7 +10,7 @@ const data = require('../../data.json');
 const scores = {};
 
 function addVotes(countryCode, voteCount, neighbours) {
-  const previous = data[countryCode] || [0, 0];
+  const previous = scores[countryCode] || [0, 0];
 
   if (neighbours) {
     previous[0] += voteCount;
@@ -18,7 +18,7 @@ function addVotes(countryCode, voteCount, neighbours) {
 
   previous[1] += voteCount;
 
-  data[countryCode] = previous;
+  scores[countryCode] = previous;
 }
 
 for (const [countryCode, votes] of Object.entries(data)) {
@@ -30,8 +30,10 @@ for (const [countryCode, votes] of Object.entries(data)) {
 }
 
 // Calculate percentages
-for (const [countryCode, components] of Object.entries(data)) {
-  data[countryCode] = components[0] / components[1];
+for (const [countryCode, votes] of Object.entries(scores)) {
+  const [neighbourVotes, totalVotes] = votes;
+
+  scores[countryCode] = neighbourVotes / totalVotes;
 }
 
 writeToFile(scoresPath, scores);
