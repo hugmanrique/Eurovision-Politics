@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "createData": "node src/createData.js",
-    "createScores": "node src/analysis/createScores.js",
+    "createScores": "node src/analysis/originalScores.js",
+    "createPercentages": "node src/analysis/neighbourPercentage.js",
     "serve": "caddy -root public"
   },
   "devDependencies": {
