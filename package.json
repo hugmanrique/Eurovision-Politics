@@ -4,7 +4,7 @@
   "scripts": {
     "createData": "node src/createData.js",
     "createScores": "node src/analysis/originalScores.js",
-    "createPercentages": "node src/analysis/neighbourPercentage.js",
+    "createPercentages": "node src/analysis/neighbourPercentages.js",
     "serve": "caddy -root public"
   },
   "devDependencies": {

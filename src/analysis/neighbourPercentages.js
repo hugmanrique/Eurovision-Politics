@@ -1,5 +1,5 @@
 const path = require('path');
-const { areNeighbours, getNeighbours } = require('../countries');
+const { areNeighbours } = require('../countries');
 const writeToFile = require('../writer');
 
 const scoresPath = path.resolve('public/scores.json');
